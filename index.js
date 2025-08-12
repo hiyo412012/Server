@@ -8,9 +8,9 @@ function startBot() {
     port: 8219,
     username: 'AFK_Bot',
     auth: 'offline',
-    version: false,         // Tự dò phiên bản server (bao gồm 1.21.6)
-    skipValidation: true,   // Bỏ qua một số kiểm tra packet không cần thiết
-    setTimeout: 30000       // Timeout kết nối trong 30s
+    version: false,
+    skipValidation: true,
+    setTimeout: 30000
   });
 
   client.on('connect', () => {
@@ -18,7 +18,7 @@ function startBot() {
     retryCount = 0;
   });
 
-  client.on('error', (err) => {
+  client.on('error', err => {
     console.error('Lỗi bot:', err);
   });
 
@@ -30,13 +30,12 @@ function startBot() {
   });
 
   client.on('packet', (data, meta) => {
-    // Bỏ qua các packet chunk có thể gây lỗi partial packet
     if (meta.name === 'chunk_data' || meta.name === 'level_chunk_with_light') {
+      // Bỏ qua các packet chunk có thể gây lỗi partial packet
       return;
     }
   });
 
-  // Gửi packet keep-alive mỗi 15 giây để giữ kết nối hoạt động
   setInterval(() => {
     try {
       client.write('keep_alive', { keepAliveId: BigInt(Date.now()) });
