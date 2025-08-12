@@ -1,24 +1,24 @@
 const mineflayer = require('mineflayer');
 
-// Đọc config từ biến môi trường Railway
+// --- Cấu hình trực tiếp ở đây ---
 const config = {
-  host: process.env.MC_HOST || 'localhost',  // IP hoặc domain server
-  port: parseInt(process.env.MC_PORT || '25565'),
-  username: process.env.MC_USERNAME || 'Bot_AFK',
-  version: process.env.MC_VERSION || '1.21.6',
-  auth: process.env.MC_AUTH || 'offline', // 'offline' hoặc 'microsoft'
-  reconnectDelayMs: parseInt(process.env.RECONNECT_DELAY || '5000'),
-  antiAfkInterval: parseInt(process.env.ANTI_AFK_INTERVAL || '50'), // giây
-  antiAfkMoveMs: parseInt(process.env.ANTI_AFK_MOVE || '1200') // ms
+  host: '65.109.53.221',  // IP server
+  port: 8219,             // Port server
+  username: 'Bot_AFK',    // Tên bot
+  version: '1.21.6',      // Phiên bản Java
+  auth: 'offline',        // 'offline' hoặc 'microsoft'
+  reconnectDelayMs: 5000, // Thời gian thử reconnect (ms)
+  antiAfkInterval: 50,    // Anti-AFK mỗi X giây
+  antiAfkMoveMs: 1200     // Thời gian di chuyển mỗi lần Anti-AFK (ms)
 };
+// --------------------------------
 
 let bot;
 let reconnectTimeout;
 let afkInterval;
 
-// Tạo bot mới
 function createBot() {
-  console.log(`[${new Date().toLocaleTimeString()}] Đang tạo bot...`);
+  console.log(`[${new Date().toLocaleTimeString()}] 🔌 Đang tạo bot...`);
 
   bot = mineflayer.createBot({
     host: config.host,
@@ -61,7 +61,7 @@ function createBot() {
   });
 }
 
-// Anti-AFK
+// --- Anti-AFK ---
 function startAntiAfk() {
   stopAntiAfk();
   afkInterval = setInterval(() => {
@@ -94,7 +94,7 @@ function stopAntiAfk() {
   }
 }
 
-// Reconnect
+// --- Reconnect ---
 function scheduleReconnect() {
   if (reconnectTimeout) return;
   reconnectTimeout = setTimeout(() => {
@@ -104,10 +104,10 @@ function scheduleReconnect() {
   }, config.reconnectDelayMs);
 }
 
-// Khởi chạy bot lần đầu
+// Chạy lần đầu
 createBot();
 
-// Dọn dẹp khi stop
+// Thoát an toàn
 process.on('SIGINT', () => {
   console.log('🔌 Đang tắt bot...');
   stopAntiAfk();
