@@ -1,17 +1,23 @@
-const mineflayer = require('mineflayer');
+const mc = require('minecraft-protocol');
 
 function startBot() {
-  const bot = mineflayer.createBot({
+  const client = mc.createClient({
     host: '65.109.53.221',
     port: 8219,
     username: 'AFK_Bot',
     auth: 'offline',
-    // version: false, // có thể bỏ comment để ép version "1.21"
+    version: false  // để tự dò phiên bản từ server
   });
 
-  bot.on('spawn', () => console.log(`Bot đã join server: ${bot.username}`));
-  bot.on('end', () => setTimeout(startBot, 5000));
-  bot.on('error', (err) => console.error('Bot error:', err));
+  client.on('connect', () => console.log('Đã kết nối vào server.'));
+  client.on('disconnect', (packet) => {
+    console.log('Bị ngắt kết nối:', packet?.reason || '');
+    setTimeout(startBot, 5000);
+  });
+  client.on('error', console.error);
+
+  // Ping để giữ server luôn "thức"
+  setInterval(() => client.write('ping', { keepAlive: Date.now() }), 15000);
 }
 
 startBot();
