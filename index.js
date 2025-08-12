@@ -6,7 +6,7 @@ function createBot() {
     port: 8219,
     username: 'AFK_Bot',
     auth: 'offline',
-    version: '1.21'  // Mineflayer 4.31.0 hỗ trợ kết nối tới 1.21.6
+    version: '1.21.6'  // Mineflayer 4.31.0 hỗ trợ kết nối tới 1.21.6
   });
 
   bot.on('spawn', () => console.log('Bot đã join thành công vào server!'));
