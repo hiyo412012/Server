@@ -1,11 +1,11 @@
 {
-  "name": "mc-afk-bot",
+  "name": "mc-afk-bot-mcprot",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "mineflayer": "^4.0.0"
+    "minecraft-protocol": "^1.54.0"
   }
 }
