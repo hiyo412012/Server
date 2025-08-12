@@ -1,12 +1,12 @@
 {
   "name": "minecraft-bot",
   "version": "1.0.0",
+  "description": "Minecraft AFK bot for Railway 24/24",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "mineflayer": "^4.20.1",
-    "prismarine-auth": "^2.4.0"
+    "mineflayer": "^4.20.1"
   }
 }
