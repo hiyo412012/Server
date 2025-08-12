@@ -1,8 +1,12 @@
 {
-  "name": "ping-minecraft-server",
+  "name": "minecraft-bot",
   "version": "1.0.0",
-  "main": "pingBot.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node pingBot.js"
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "mineflayer": "^4.20.1",
+    "prismarine-auth": "^2.4.0"
   }
 }
