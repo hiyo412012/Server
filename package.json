@@ -1,10 +1,8 @@
 {
-  "name": "mc-afk-bot",
+  "name": "ping-minecraft-server",
   "version": "1.0.0",
+  "main": "pingBot.js",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "mineflayer": "4.31.0"
+    "start": "node pingBot.js"
   }
 }
