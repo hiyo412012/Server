@@ -6,18 +6,24 @@ function startBot() {
     port: 8219,
     username: 'AFK_Bot',
     auth: 'offline',
-    version: false  // để tự dò phiên bản từ server
+    version: false  // để tự dò phiên bản server (bao gồm 1.21.6)
   });
 
-  client.on('connect', () => console.log('Đã kết nối vào server.'));
-  client.on('disconnect', (packet) => {
-    console.log('Bị ngắt kết nối:', packet?.reason || '');
+  client.on('connect', () => console.log('Đã kết nối vào server Minecraft.'));
+  client.on('end', () => {
+    console.log('Kết nối bị ngắt, đang reconnect...');
     setTimeout(startBot, 5000);
   });
-  client.on('error', console.error);
+  client.on('error', (err) => console.error('Lỗi bot:', err));
 
-  // Ping để giữ server luôn "thức"
-  setInterval(() => client.write('ping', { keepAlive: Date.now() }), 15000);
+  // Gửi keep-alive ping để giữ kết nối luôn hoạt động
+  setInterval(() => {
+    try {
+      client.write('keep_alive', { keepAliveId: BigInt(Date.now()) });
+    } catch (err) {
+      console.error('Lỗi keep-alive:', err);
+    }
+  }, 15000);
 }
 
 startBot();
